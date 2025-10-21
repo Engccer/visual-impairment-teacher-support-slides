@@ -112,6 +112,9 @@ class Presentation {
     }
 
     showSlide(index) {
+        // Stop all currently playing audio
+        this.stopAllAudio();
+
         // Remove active class from all slides
         this.slides.forEach(slide => {
             slide.classList.remove('active');
@@ -191,6 +194,26 @@ class Presentation {
         const title = slideTitle ? slideTitle.textContent : `슬라이드 ${this.currentSlide + 1}`;
 
         announcer.textContent = `${title}. 슬라이드 ${this.currentSlide + 1} / ${this.totalSlides}`;
+    }
+
+    // Stop all audio playback
+    stopAllAudio() {
+        // Stop sound effects
+        Object.values(this.sounds).forEach(sound => {
+            if (sound) {
+                sound.pause();
+                sound.currentTime = 0;
+            }
+        });
+
+        // Stop all title narrations
+        for (let i = 1; i <= this.totalSlides; i++) {
+            const titleAudio = document.getElementById(`title-${i}`);
+            if (titleAudio) {
+                titleAudio.pause();
+                titleAudio.currentTime = 0;
+            }
+        }
     }
 
     // Sound playback

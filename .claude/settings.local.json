@@ -2,7 +2,19 @@
   "permissions": {
     "allow": [
       "Bash(git init:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nInitial commit: 시각장애인교원 사례 발표 슬라이드\n\n- HTML 기반 인터랙티브 슬라이드 (14장)\n- 반응형 디자인 및 접근성 지원\n- 키보드/터치 네비게이션\n- 이미지 슬라이드 (신명중/구룡중 사진 6장)\n- 효과음 시스템 (Web Audio API 생성기)\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(gh:*)",
+      "Bash(winget install:*)",
+      "Bash(\"C:\\Program Files\\GitHub CLI\\gh.exe\" --version)",
+      "Bash(\"C:\\Program Files\\GitHub CLI\\gh.exe\" auth status)",
+      "Bash(\"C:\\Program Files\\GitHub CLI\\gh.exe\" auth login)",
+      "Bash(\"C:\\Program Files\\GitHub CLI\\gh.exe\" auth login --web)",
+      "Bash(git remote add:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "Bash(\"C:\\Program Files\\GitHub CLI\\gh.exe\" api repos/Engccer/visual-impairment-teacher-support-slides/pages -X POST -f source[branch]=main -f source[path]=/)",
+      "Bash(copy:*)"
     ],
     "deny": [],
     "ask": []
