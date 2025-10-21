@@ -1,0 +1,26 @@
+# OS generated files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node modules (if any)
+node_modules/
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+
+# Audio files that will be generated locally
+audio/*.mp3
+audio/*.wav
+!audio/README.md
+!audio/sound-generator.html
+!audio/효과음-다운로드-가이드.md

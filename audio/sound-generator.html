@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프레젠테이션 효과음 생성기</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.9em;
+        }
+        .sound-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .sound-card h3 {
+            margin-top: 0;
+            color: #667eea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .sound-card p {
+            color: #666;
+            margin: 10px 0;
+            font-size: 0.9em;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        button {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        .play-btn {
+            background: #667eea;
+            color: white;
+        }
+        .play-btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        .download-btn {
+            background: #27ae60;
+            color: white;
+        }
+        .download-btn:hover {
+            background: #229954;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(39, 174, 96, 0.4);
+        }
+        .download-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .icon {
+            font-size: 1.5em;
+        }
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .info-box h4 {
+            margin-top: 0;
+            color: #1976d2;
+        }
+        .info-box p {
+            margin-bottom: 0;
+            color: #333;
+        }
+        .success-message {
+            background: #c8e6c9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            display: none;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎵 프레젠테이션 효과음 생성기</h1>
+        <p class="subtitle">Web Audio API를 사용하여 간단한 효과음을 생성합니다</p>
+
+        <div class="info-box">
+            <h4>📋 사용 방법</h4>
+            <p>1. 각 효과음의 '재생' 버튼을 눌러 미리 들어보세요<br>
+            2. 마음에 드는 효과음을 '다운로드' 버튼으로 저장하세요<br>
+            3. 파일명을 확인하고 audio 폴더에 저장하세요</p>
+        </div>
+
+        <!-- Start Sound -->
+        <div class="sound-card">
+            <h3><span class="icon">🔔</span> Start Sound (start.mp3)</h3>
+            <p>프레젠테이션 시작 시 재생되는 환영 사운드</p>
+            <p><strong>특징:</strong> 부드러운 상승 톤 + 밝은 벨 소리</p>
+            <div class="button-group">
+                <button class="play-btn" onclick="playStart()">▶️ 재생</button>
+                <button class="download-btn" onclick="downloadStart()">💾 다운로드 (start.mp3)</button>
+            </div>
+        </div>
+
+        <!-- Next Sound -->
+        <div class="sound-card">
+            <h3><span class="icon">➡️</span> Next Sound (next.mp3)</h3>
+            <p>다음 슬라이드로 넘어갈 때 재생되는 가벼운 클릭음</p>
+            <p><strong>특징:</strong> 짧고 경쾌한 클릭 효과</p>
+            <div class="button-group">
+                <button class="play-btn" onclick="playNext()">▶️ 재생</button>
+                <button class="download-btn" onclick="downloadNext()">💾 다운로드 (next.mp3)</button>
+            </div>
+        </div>
+
+        <!-- Prev Sound -->
+        <div class="sound-card">
+            <h3><span class="icon">⬅️</span> Prev Sound (prev.mp3)</h3>
+            <p>이전 슬라이드로 돌아갈 때 재생되는 부드러운 클릭음</p>
+            <p><strong>특징:</strong> next와 유사하지만 약간 낮은 톤</p>
+            <div class="button-group">
+                <button class="play-btn" onclick="playPrev()">▶️ 재생</button>
+                <button class="download-btn" onclick="downloadPrev()">💾 다운로드 (prev.mp3)</button>
+            </div>
+        </div>
+
+        <!-- End Sound -->
+        <div class="sound-card">
+            <h3><span class="icon">🎉</span> End Sound (end.mp3)</h3>
+            <p>프레젠테이션 종료 시 재생되는 성취 사운드</p>
+            <p><strong>특징:</strong> 완료감을 주는 상승 화음</p>
+            <div class="button-group">
+                <button class="play-btn" onclick="playEnd()">▶️ 재생</button>
+                <button class="download-btn" onclick="downloadEnd()">💾 다운로드 (end.mp3)</button>
+            </div>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            ✅ 다운로드 완료! 파일을 audio 폴더에 저장하세요.
+        </div>
+
+        <div class="info-box">
+            <h4>💡 참고사항</h4>
+            <p>• 이 도구는 간단한 합성 효과음을 생성합니다<br>
+            • 더 전문적인 효과음을 원하신다면 Freesound.org나 Pixabay를 이용하세요<br>
+            • 생성된 파일은 WAV 형식이며, 필요시 MP3로 변환하세요 (온라인 변환기 이용)<br>
+            • 브라우저에 따라 다운로드가 다르게 동작할 수 있습니다</p>
+        </div>
+
+        <div class="footer">
+            <p>Web Audio API를 사용한 간단한 효과음 생성기<br>
+            시각장애인교원 사례 발표 프레젠테이션용</p>
+        </div>
+    </div>
+
+    <script>
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        // Start sound: Rising tone with bell
+        function createStartSound() {
+            const duration = 1.5;
+            const sampleRate = audioContext.sampleRate;
+            const buffer = audioContext.createBuffer(2, sampleRate * duration, sampleRate);
+
+            for (let channel = 0; channel < 2; channel++) {
+                const data = buffer.getChannelData(channel);
+                for (let i = 0; i < buffer.length; i++) {
+                    const t = i / sampleRate;
+                    // Rising tone
+                    const freq1 = 400 + (t * 200);
+                    const wave1 = Math.sin(2 * Math.PI * freq1 * t) * 0.3;
+                    // Bell overtone
+                    const wave2 = Math.sin(2 * Math.PI * 800 * t) * 0.2;
+                    const wave3 = Math.sin(2 * Math.PI * 1200 * t) * 0.1;
+                    // Envelope
+                    const envelope = Math.exp(-t * 2);
+                    data[i] = (wave1 + wave2 + wave3) * envelope;
+                }
+            }
+            return buffer;
+        }
+
+        // Next sound: Short click
+        function createNextSound() {
+            const duration = 0.15;
+            const sampleRate = audioContext.sampleRate;
+            const buffer = audioContext.createBuffer(2, sampleRate * duration, sampleRate);
+
+            for (let channel = 0; channel < 2; channel++) {
+                const data = buffer.getChannelData(channel);
+                for (let i = 0; i < buffer.length; i++) {
+                    const t = i / sampleRate;
+                    const wave = Math.sin(2 * Math.PI * 1000 * t) * 0.3;
+                    const envelope = Math.exp(-t * 30);
+                    data[i] = wave * envelope;
+                }
+            }
+            return buffer;
+        }
+
+        // Prev sound: Lower click
+        function createPrevSound() {
+            const duration = 0.15;
+            const sampleRate = audioContext.sampleRate;
+            const buffer = audioContext.createBuffer(2, sampleRate * duration, sampleRate);
+
+            for (let channel = 0; channel < 2; channel++) {
+                const data = buffer.getChannelData(channel);
+                for (let i = 0; i < buffer.length; i++) {
+                    const t = i / sampleRate;
+                    const wave = Math.sin(2 * Math.PI * 700 * t) * 0.3;
+                    const envelope = Math.exp(-t * 30);
+                    data[i] = wave * envelope;
+                }
+            }
+            return buffer;
+        }
+
+        // End sound: Achievement chord
+        function createEndSound() {
+            const duration = 2;
+            const sampleRate = audioContext.sampleRate;
+            const buffer = audioContext.createBuffer(2, sampleRate * duration, sampleRate);
+
+            for (let channel = 0; channel < 2; channel++) {
+                const data = buffer.getChannelData(channel);
+                for (let i = 0; i < buffer.length; i++) {
+                    const t = i / sampleRate;
+                    // Major chord: C-E-G
+                    const wave1 = Math.sin(2 * Math.PI * 523.25 * t) * 0.2; // C
+                    const wave2 = Math.sin(2 * Math.PI * 659.25 * t) * 0.2; // E
+                    const wave3 = Math.sin(2 * Math.PI * 783.99 * t) * 0.2; // G
+                    const wave4 = Math.sin(2 * Math.PI * 1046.50 * t) * 0.15; // C high
+                    const envelope = Math.exp(-t * 1.5);
+                    data[i] = (wave1 + wave2 + wave3 + wave4) * envelope;
+                }
+            }
+            return buffer;
+        }
+
+        function playBuffer(buffer) {
+            const source = audioContext.createBufferSource();
+            source.buffer = buffer;
+            source.connect(audioContext.destination);
+            source.start();
+        }
+
+        function playStart() {
+            playBuffer(createStartSound());
+        }
+
+        function playNext() {
+            playBuffer(createNextSound());
+        }
+
+        function playPrev() {
+            playBuffer(createPrevSound());
+        }
+
+        function playEnd() {
+            playBuffer(createEndSound());
+        }
+
+        function bufferToWave(buffer) {
+            const length = buffer.length * buffer.numberOfChannels * 2 + 44;
+            const arrayBuffer = new ArrayBuffer(length);
+            const view = new DataView(arrayBuffer);
+            const channels = [];
+            let offset = 0;
+            let pos = 0;
+
+            // Write WAV header
+            const setUint16 = (data) => {
+                view.setUint16(pos, data, true);
+                pos += 2;
+            };
+            const setUint32 = (data) => {
+                view.setUint32(pos, data, true);
+                pos += 4;
+            };
+
+            // "RIFF"
+            setUint32(0x46464952);
+            // File size - 8
+            setUint32(length - 8);
+            // "WAVE"
+            setUint32(0x45564157);
+            // "fmt "
+            setUint32(0x20746d66);
+            // Length of format data
+            setUint32(16);
+            // Type of format (1 = PCM)
+            setUint16(1);
+            // Number of channels
+            setUint16(buffer.numberOfChannels);
+            // Sample rate
+            setUint32(buffer.sampleRate);
+            // Byte rate
+            setUint32(buffer.sampleRate * 2 * buffer.numberOfChannels);
+            // Block align
+            setUint16(buffer.numberOfChannels * 2);
+            // Bits per sample
+            setUint16(16);
+            // "data"
+            setUint32(0x61746164);
+            // Data chunk size
+            setUint32(length - pos - 4);
+
+            // Write audio data
+            for (let i = 0; i < buffer.numberOfChannels; i++) {
+                channels.push(buffer.getChannelData(i));
+            }
+
+            while (pos < length) {
+                for (let i = 0; i < buffer.numberOfChannels; i++) {
+                    let sample = Math.max(-1, Math.min(1, channels[i][offset]));
+                    sample = sample < 0 ? sample * 0x8000 : sample * 0x7FFF;
+                    view.setInt16(pos, sample, true);
+                    pos += 2;
+                }
+                offset++;
+            }
+
+            return new Blob([arrayBuffer], { type: 'audio/wav' });
+        }
+
+        function downloadSound(buffer, filename) {
+            const wav = bufferToWave(buffer);
+            const url = URL.createObjectURL(wav);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            // Show success message
+            const msg = document.getElementById('successMessage');
+            msg.style.display = 'block';
+            setTimeout(() => {
+                msg.style.display = 'none';
+            }, 3000);
+        }
+
+        function downloadStart() {
+            downloadSound(createStartSound(), 'start.wav');
+        }
+
+        function downloadNext() {
+            downloadSound(createNextSound(), 'next.wav');
+        }
+
+        function downloadPrev() {
+            downloadSound(createPrevSound(), 'prev.wav');
+        }
+
+        function downloadEnd() {
+            downloadSound(createEndSound(), 'end.wav');
+        }
+    </script>
+</body>
+</html>
