@@ -17,10 +17,3 @@ node_modules/
 *.tmp
 *.bak
 *.log
-
-# Audio files that will be generated locally
-audio/*.mp3
-audio/*.wav
-!audio/README.md
-!audio/sound-generator.html
-!audio/효과음-다운로드-가이드.md

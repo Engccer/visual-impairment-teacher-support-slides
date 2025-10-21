@@ -14,7 +14,9 @@
       "Bash(git branch:*)",
       "Bash(git push:*)",
       "Bash(\"C:\\Program Files\\GitHub CLI\\gh.exe\" api repos/Engccer/visual-impairment-teacher-support-slides/pages -X POST -f source[branch]=main -f source[path]=/)",
-      "Bash(copy:*)"
+      "Bash(copy:*)",
+      "Bash(git config:*)",
+      "Bash(\"C:\\Program Files\\GitHub CLI\\gh.exe\" repo view)"
     ],
     "deny": [],
     "ask": []
