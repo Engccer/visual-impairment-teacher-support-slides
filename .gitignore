@@ -17,3 +17,5 @@ node_modules/
 *.tmp
 *.bak
 *.log
+
+desktop.ini

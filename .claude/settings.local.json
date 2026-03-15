@@ -16,7 +16,9 @@
       "Bash(\"C:\\Program Files\\GitHub CLI\\gh.exe\" api repos/Engccer/visual-impairment-teacher-support-slides/pages -X POST -f source[branch]=main -f source[path]=/)",
       "Bash(copy:*)",
       "Bash(git config:*)",
-      "Bash(\"C:\\Program Files\\GitHub CLI\\gh.exe\" repo view)"
+      "Bash(\"C:\\Program Files\\GitHub CLI\\gh.exe\" repo view)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nAdd audio files to repository\n\n- 효과음 파일 추가 (start.wav, next.wav, prev.wav, end.wav)\n- 모든 슬라이드 제목 음성 파일 추가 (slide01-14_title(revised).mp3)\n- .gitignore 수정: 오디오 파일 제외 규칙 제거\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []
